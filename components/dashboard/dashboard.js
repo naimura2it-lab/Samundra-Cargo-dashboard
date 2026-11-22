@@ -144,7 +144,7 @@ const DashboardSummary = () => {
   const quickActions = [
     {
       title: 'Bookings',
-      description: 'View all bookings or create a new booking request.',
+      description: isStaffUser ? 'View all bookings.' : 'View all bookings or create a new booking request.',
       href: '/Bookings/all_bookings'
     },
     {

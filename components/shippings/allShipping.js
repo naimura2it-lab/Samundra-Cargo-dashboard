@@ -1595,12 +1595,12 @@ const TrackingUpdateModal = ({ isOpen, onClose, shipment, onAdd }) => {
 
 // Assign Staff Modal
 const AssignModal = ({ isOpen, onClose, shipment, onAssign }) => {
-  const [formData, setFormData] = useState({ staffId: '', role: 'operations', notes: '' });
+  const [formData, setFormData] = useState({ staffId: '', role: 'warehouse', notes: '' });
   const [loading, setLoading] = useState(false);
   const [staffOptions, setStaffOptions] = useState([]);
   const [loadingStaff, setLoadingStaff] = useState(false);
 
-  useEffect(() => { if (shipment) setFormData({ staffId: '', role: 'operations', notes: '' }); }, [shipment]);
+  useEffect(() => { if (shipment) setFormData({ staffId: '', role: 'warehouse', notes: '' }); }, [shipment]);
 
   // Load the REAL staff list from the backend. (Previously this was a hardcoded
   // list of fake names/ids like "staff1/John Doe", so assigning always failed
@@ -1632,7 +1632,7 @@ const AssignModal = ({ isOpen, onClose, shipment, onAssign }) => {
 
   if (!isOpen || !shipment) return null;
 
-  const roleOptions = [{ value: 'operations', label: 'Operations' }, { value: 'warehouse', label: 'Warehouse' }, { value: 'driver', label: 'Driver' }, { value: 'customs', label: 'Customs Broker' }, { value: 'customer_service', label: 'Customer Service' }];
+  const roleOptions = [{ value: 'warehouse', label: 'Warehouse' }, { value: 'driver', label: 'Driver' }, { value: 'customs', label: 'Customs Broker' }, { value: 'customer_service', label: 'Customer Service' }];
 
   const handleSubmit = async (e) => {
     e.preventDefault();

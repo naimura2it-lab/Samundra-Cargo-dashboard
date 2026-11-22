@@ -46,6 +46,7 @@ import {
 } from '@/services/booking';
 
 import { getStates, fetchCitiesByState } from '@/services/location';
+import { getCurrentUser } from '@/services/Authentication';
 
 // Icons
 import {
@@ -2468,6 +2469,7 @@ const CollapsibleBookingCard = ({ booking, selectedBookings, setSelectedBookings
 // ==================== MAIN COMPONENT ====================
 export default function BookingsPage() {
   const router = useRouter();
+  const canCreateBooking = getCurrentUser()?.role !== 'warehouse';
   const [loading, setLoading] = useState(true);
   const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
@@ -2934,15 +2936,17 @@ const handleInputChange = (e) => {
               </span>
             </div>
             
-            <div className="flex items-center space-x-2"> 
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={() => router.push('/Bookings/create_bookings')}
-                icon={<Plus className="h-4 w-4" />}
-              >
-                New Booking
-              </Button>
+            <div className="flex items-center space-x-2">
+              {canCreateBooking && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => router.push('/Bookings/create_bookings')}
+                  icon={<Plus className="h-4 w-4" />}
+                >
+                  New Booking
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -3082,14 +3086,16 @@ const handleInputChange = (e) => {
               </div>
               <h3 className="mt-4 text-lg font-medium text-gray-900">No bookings found</h3>
               <p className="mt-1 text-sm text-gray-500">Get started by creating your first booking</p>
-              <Button
-                variant="primary"
-                onClick={() => router.push('/Bookings/create_bookings')}
-                className="mt-4"
-                icon={<Plus className="h-4 w-4" />}
-              >
-                Create New Booking
-              </Button>
+              {canCreateBooking && (
+                <Button
+                  variant="primary"
+                  onClick={() => router.push('/Bookings/create_bookings')}
+                  className="mt-4"
+                  icon={<Plus className="h-4 w-4" />}
+                >
+                  Create New Booking
+                </Button>
+              )}
             </div>
           </div>
         ) : (

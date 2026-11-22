@@ -487,7 +487,6 @@ const CustomersPage = () => {
             >
               <option value="all">All Users</option>
               <option value="admin">Admin</option>
-              <option value="operations">Operations</option>
               <option value="warehouse">Warehouse</option>
               <option value="customer">Customer</option>
             </select>
@@ -1103,7 +1102,6 @@ const CustomersPage = () => {
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                           <option value="customer">Customer</option>
-                          <option value="operations">Operations</option>
                           <option value="warehouse">Warehouse</option>
                           <option value="admin">Admin</option>
                         </select>

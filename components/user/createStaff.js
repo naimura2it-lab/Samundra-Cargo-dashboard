@@ -58,7 +58,7 @@ const CreateStaffAdmin = () => {
     // Account Details
     password: '',
     confirmPassword: '',
-    role: 'staff',
+    role: 'warehouse',
     permissions: [],
     
     // Staff Specific Fields
@@ -71,7 +71,6 @@ const CreateStaffAdmin = () => {
   const [errors, setErrors] = useState({});
 
   const departments = [
-    'operations',      // Operations Department
       'customer_service', // Customer Service
       'finance',         // Finance Department
       'warehouse',       // Warehouse/Logistics
@@ -178,7 +177,7 @@ const handleSubmit = async () => {
     if (userType === 'staff' && (!formData.role || formData.role === 'staff')) {
       setSnackbar({
         show: true,
-        message: 'Please select a staff role (Operations or Warehouse)',
+        message: 'Please select a staff role (Warehouse)',
         type: 'error'
       });
       setLoading(false);
@@ -236,7 +235,7 @@ const handleSubmit = async () => {
         department: '',
         password: '',
         confirmPassword: '',
-        role: 'staff', // Reset to default
+        role: 'warehouse', // Reset to default
         permissions: [],
         employeeId: '',
         warehouseLocation: 'China Warehouse',
@@ -278,7 +277,7 @@ const handleReset = () => {
       department: '',
       password: '',
       confirmPassword: '',
-      role: 'staff',
+      role: 'warehouse',
       permissions: [],
       employeeId: '',
       warehouseLocation: 'China Warehouse',
@@ -294,8 +293,6 @@ const handleReset = () => {
   const getAvailablePermissions = () => {
     if (userType === 'admin') {
       return permissions.filter(p => p.roles.includes('admin'));
-    } else if (userType === 'operations') {
-      return permissions.filter(p => p.roles.includes('operations'));
     } else if (userType === 'warehouse') {
       return permissions.filter(p => p.roles.includes('warehouse'));
     }
@@ -310,7 +307,10 @@ const handleReset = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Staff Card */}
               <div 
-                onClick={() => setUserType('staff')}
+                onClick={() => {
+                  setUserType('staff');
+                  setFormData(prev => ({ ...prev, role: 'warehouse' }));
+                }}
                 className={`cursor-pointer transition-all duration-300 transform hover:scale-105 ${
                   userType === 'staff' ? 'ring-4 ring-red-500' : ''
                 }`}
@@ -328,7 +328,7 @@ const handleReset = () => {
                   <div className="p-8 text-center">
                     <h3 className="text-2xl font-bold text-gray-800 mb-3">Add Warehouse Staff Member</h3>
                     <p className="text-gray-600">
-                      Create a new operations or warehouse staff account for your team.
+                      Create a new warehouse staff account for your team.
                     </p>
                     {userType === 'staff' && (
                       <div className="mt-4 inline-flex items-center gap-2 text-red-500 font-semibold">
@@ -380,22 +380,6 @@ const handleReset = () => {
                   Choose Staff Role
                 </label>
                 <div className="flex gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setFormData(prev => ({ ...prev, role: 'operations' }))}
-                    className={`flex-1 p-4 rounded-xl border-2 transition-all ${
-                      formData.role === 'operations'
-                        ? 'border-red-500 bg-red-50'
-                        : 'border-gray-200 hover:border-red-200'
-                    }`}
-                  >
-                    <FaUsers className={`text-2xl mx-auto mb-2 ${
-                      formData.role === 'operations' ? 'text-red-500' : 'text-gray-400'
-                    }`} />
-                    <span className={`font-medium ${
-                      formData.role === 'operations' ? 'text-red-700' : 'text-gray-600'
-                    }`}>Operations</span>
-                  </button>
                   <button
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, role: 'warehouse' }))}

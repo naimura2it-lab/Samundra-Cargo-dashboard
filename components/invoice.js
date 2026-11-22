@@ -28,6 +28,7 @@ import {
 
 // ==================== MANUAL INVOICE API IMPORT ====================
 import { getManualInvoices ,ManualdeleteInvoice} from '@/services/manualIvnoice';
+import { getCurrentUser } from '@/services/Authentication';
 
 import { toast } from 'react-toastify';
 import {
@@ -770,18 +771,25 @@ const DeleteModal = ({ isOpen, onClose, onConfirm, invoice }) => {
 };
 
 // Empty State
-const EmptyState = ({ onRefresh }) => (
+const EmptyState = ({ onRefresh }) => {
+  const canCreateBooking = getCurrentUser()?.role !== 'warehouse';
+  return (
   <div className="text-center py-16 bg-white rounded-xl border">
     <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"><Receipt className="h-10 w-10 text-[#E67E22]" /></div>
     <h3 className="text-lg font-medium text-gray-900 mb-2">No invoices found</h3>
     <p className="text-sm text-gray-500 mb-6 max-w-md mx-auto">Create your first Bookings to get started with billing and payment tracking.</p>
     <div className="flex items-center justify-center space-x-3">
-      <Link href="/Bookings/create_bookings" className="inline-flex items-center px-4 py-2 bg-[#E67E22] text-white rounded-lg hover:bg-[#d35400]"><PlusCircle className="h-4 w-4 mr-2" />Create New Bookings</Link>
-      <Link href="/Bookings/create_manually" className="inline-flex items-center px-4 py-2 bg-[#4a6af8] text-white rounded-lg hover:bg-[#d35400]"><PlusCircle className="h-4 w-4 mr-2" />Create Manual Bookings</Link>
+      {canCreateBooking && (
+        <>
+          <Link href="/Bookings/create_bookings" className="inline-flex items-center px-4 py-2 bg-[#E67E22] text-white rounded-lg hover:bg-[#d35400]"><PlusCircle className="h-4 w-4 mr-2" />Create New Bookings</Link>
+          <Link href="/Bookings/create_manually" className="inline-flex items-center px-4 py-2 bg-[#4a6af8] text-white rounded-lg hover:bg-[#d35400]"><PlusCircle className="h-4 w-4 mr-2" />Create Manual Bookings</Link>
+        </>
+      )}
       <button onClick={onRefresh} className="inline-flex items-center px-4 py-2 border rounded-lg hover:bg-gray-50"><RefreshCw className="h-4 w-4 mr-2" />Refresh</button>
     </div>
   </div>
-);
+  );
+};
 
 // ==================== MAIN PAGE ====================
 

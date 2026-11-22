@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { createBooking } from '@/services/booking';
-import { getAllUsers } from '@/services/Authentication';
+import { getAllUsers, getCurrentUser } from '@/services/Authentication';
 import { getUserDetails } from '@/utils/SessionHelper';
 
 // Location functions
@@ -395,6 +395,13 @@ const CustomerSearchModal = ({ isOpen, onClose, onSelect, customers, loading }) 
 // ==================== MAIN COMPONENT ====================
 export default function CreateBooking() {
   const router = useRouter();
+
+  useEffect(() => {
+    if (getCurrentUser()?.role === 'warehouse') {
+      router.replace('/Bookings/all_bookings');
+    }
+  }, [router]);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);

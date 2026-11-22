@@ -48,7 +48,6 @@ const AdminUsersPage = () => {
   const [stats, setStats] = useState({
     total: 0,
     admin: 0,
-    operations: 0,
     warehouse: 0,
     customer: 0
   });
@@ -216,7 +215,7 @@ const AdminUsersPage = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-5 gap-4 mb-6">
+        <div className="grid grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <p className="text-sm text-gray-600 mb-1">Total Users</p>
             <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
@@ -224,10 +223,6 @@ const AdminUsersPage = () => {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <p className="text-sm text-gray-600 mb-1">Admins</p>
             <p className="text-2xl font-bold text-red-600">{stats.admin}</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-            <p className="text-sm text-gray-600 mb-1">Operations</p>
-            <p className="text-2xl font-bold text-blue-600">{stats.operations}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <p className="text-sm text-gray-600 mb-1">Warehouse</p>
@@ -268,7 +263,6 @@ const AdminUsersPage = () => {
               >
                 <option value="all">All Roles</option>
                 <option value="admin">Admin</option>
-                <option value="operations">Operations</option>
                 <option value="warehouse">Warehouse</option>
                 <option value="customer">Customer</option>
               </select>
